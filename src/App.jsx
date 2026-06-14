@@ -19,6 +19,7 @@ function Quiz() {
     }
   ]);
 
+  
 
   const [questionInput, setQuestionInput] = useState("");
   const [option1, setOption1] = useState("");
