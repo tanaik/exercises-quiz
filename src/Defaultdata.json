@@ -1,0 +1,114 @@
+{
+  "questions": [
+    {
+      "question": "What is Virtual DOM?",
+      "options": [
+        "A copy of the real DOM",
+        "Database",
+        "CSS Framework",
+        "Programming Language"
+      ],
+      "id": 1,
+      "questionId": 1
+    },
+    {
+      "question": "Which hook is used for side effects in React?",
+      "options": [
+        "useState",
+        "useEffect",
+        "useContext",
+        "useReducer"
+      ],
+      "id": 2,
+      "questionId": 2
+    },
+    {
+      "question": "What does JSX stand for?",
+      "options": [
+        "JavaScript XML",
+        "Java Syntax Extension",
+        "JSON Syntax",
+        "JavaScript Extension"
+      ],
+        "id": 3,
+      "questionId": 3
+    },
+    {
+      "question": "Which method is used to update state in React?",
+      "options": [
+        "setState",
+        "updateState",
+        "changeState",
+        "modifyState"
+      ],
+        "id": 4,
+      "questionId": 4
+    },
+    {
+      "question": "What is the default port for React development server?",
+      "options": [
+        "3000",
+        "8080",
+        "5000",
+        "4200"
+      ],
+        "id": 5,
+      "questionId": 5
+    },
+    {
+      "question": "Which hook is used to manage state in functional components?",
+      "options": [
+        "useEffect",
+        "useState",
+        "useMemo",
+        "useRef"
+      ],
+      "id": 6,      
+      "questionId": 6
+    },
+    {
+      "question": "React is mainly used for building?",
+      "options": [
+        "Databases",
+        "User Interfaces",
+        "Operating Systems",
+        "Servers"
+      ],
+        "id": 7,
+      "questionId": 7
+    },
+    {
+      "question": "What is the purpose of keys in React lists?",
+      "options": [
+        "To uniquely identify elements",
+        "To style elements",
+        "To encrypt data",
+        "To improve performance automatically"
+      ],
+        "id": 8,
+      "questionId": 8
+    },
+    {
+      "question": "Which company developed React?",
+      "options": [
+        "Google",
+        "Facebook",
+        "Microsoft",
+        "Amazon"
+      ],
+        "id": 9,
+      "questionId": 9
+    },
+    {
+      "question": "What does useRef hook provide?",
+      "options": [
+        "Mutable reference that persists",
+        "State management",
+        "Side effects",
+        "Context API"
+      ],
+        "id": 10,
+      "questionId": 10
+    }
+  ]
+}
