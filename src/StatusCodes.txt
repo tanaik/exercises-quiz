@@ -1,0 +1,17 @@
+| Code | Category | Meaning |
+| --- | --- | --- |
+| 200 | Success | Request succeeded |
+| 201 | Success | Resource created |
+| 204 | Success | No content returned |
+| 301 | Redirection | Permanently moved |
+| 302 | Redirection | Temporarily moved |
+| 304 | Redirection | Not modified (use cache) |
+| 400 | Client Error | Bad request |
+| 401 | Client Error | Unauthorized |
+| 403 | Client Error | Forbidden |
+| 404 | Client Error | Not found |
+| 405 | Client Error | Method not allowed |
+| 500 | Server Error | Internal server error |
+| 502 | Server Error | Bad gateway |
+| 503 | Server Error | Service unavailable |
+| 504 | Server Error | Gateway timeout |

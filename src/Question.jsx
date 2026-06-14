@@ -1,5 +1,5 @@
 import React from "react";
-
+import { fetchDELETE } from "./apiService";
 const Question = (props) => {
     console.log(props.question);
     var question = {
@@ -7,7 +7,16 @@ const Question = (props) => {
         "options": props.options,
         "questionId": props.questionId
     }
-
+    
+    const deleteQuestion = (questionId) => {
+        fetchDELETE(questionId)
+        .then(() => {
+            console.log(`Question with ID ${questionId} deleted successfully.`);
+        })
+        .catch((error) => {
+            console.error("Error deleting question:", error);
+        });
+    }
     
   return (
     <>
@@ -28,7 +37,7 @@ const Question = (props) => {
           </ul>
 
           <button
-            onClick={() => props.deleteQuestion(question.questionId)}
+            onClick={() => deleteQuestion(question.questionId)}
           >
             Delete
           </button>
