@@ -1,4 +1,7 @@
 import { useState } from "react";
+import Question from "./Question";
+import QuestionList from "./QuestionList";
+import QuestionForm from "./QuestionForm";
 
 function Quiz() {
   const [id, setId] = useState(1);
@@ -16,17 +19,12 @@ function Quiz() {
     }
   ]);
 
+
   const [questionInput, setQuestionInput] = useState("");
   const [option1, setOption1] = useState("");
   const [option2, setOption2] = useState("");
   const [option3, setOption3] = useState("");
   const [option4, setOption4] = useState("");
-
-  const [questionInputEdit, setQuestionInputEdit] = useState("");
-  const [option1Edit, setOption1Edit] = useState("");
-  const [option2Edit, setOption2Edit] = useState("");
-  const [option3Edit, setOption3Edit] = useState("");
-  const [option4Edit, setOption4Edit] = useState("");
 
   const updateQuestion = (e, isEdit = false) => {
     e.preventDefault();
@@ -62,145 +60,25 @@ function Quiz() {
     setOption4("");
   };
 
-  const deleteQuestion = (questionText) => {
+  const deleteQuestion = (questionId) => {
     setQuestions(
-      questions.filter(q => q.question !== questionText)
+      questions.filter(q => q.questionId !== questionId)
     );
   };
+
+  const getQuestionById = (id) => {
+    return questions.find(q => q.questionId === id);
+  }
 
   return (
     <div>
       <h1>Quiz App</h1>
 
-      {questions.map((q, index) => (
-        <div
-          key={index}
-          style={{
-            border: "1px solid black",
-            margin: "5px",
-            padding: "5px"
-          }}
-        >
-          <h3>{q.questionId}{". "}{q.question}</h3>
-
-          <ul>
-            {q.options.map((option, i) => (
-              <li key={i}>{option}</li>
-            ))}
-          </ul>
-
-          <button
-            onClick={() => deleteQuestion(q.question)}
-          >
-            Delete
-          </button>
-          <button onClick={() => {
-            console.log("Edit"),
-            setCurrQuestionId(q.questionId)
-            var currQues = questions.find(ques => ques.questionId === q.questionId);
-            setQuestionInputEdit(currQues.question);
-            setOption1Edit(currQues.options[0]);
-            setOption2Edit(currQues.options[1]);
-            setOption3Edit(currQues.options[2]);
-            setOption4Edit(currQues.options[3]);
-            }}
-          >Edit</button>
-        </div>
-      ))}
-
-      <form onSubmit={(e) => updateQuestion(e, false)}>
-        <input
-          type="text"
-          placeholder="Enter Question"
-          value={questionInput}
-          onChange={(e) => setQuestionInput(e.target.value)}
-        />
-
-        <br /><br />
-
-        <input
-          type="text"
-          placeholder="Option 1"
-          value={option1}
-          onChange={(e) => setOption1(e.target.value)}
-        />
-
-        <input
-          type="text"
-          placeholder="Option 2"
-          value={option2}
-          onChange={(e) => setOption2(e.target.value)}
-        />
-
-        <input
-          type="text"
-          placeholder="Option 3"
-          value={option3}
-          onChange={(e) => setOption3(e.target.value)}
-        />
-
-        <input
-          type="text"
-          placeholder="Option 4"
-          value={option4}
-          onChange={(e) => setOption4(e.target.value)}
-        />
-
-        <br /><br />
-
-        <button type="submit">
-          Add Question
-        </button>
-      </form>
-
-       <form onSubmit={(e) => updateQuestion(e, true)}>r
-        {currQuestionId != 0 && <span>{currQuestionId}. </span>} 
-        <input
-          type="text"
-          placeholder="Enter Question"
-          value={questionInputEdit}
-          onChange={(e) => setQuestionInputEdit(e.target.value)}
-        />
-
-        <br /><br />
-
-        <input
-          type="text"
-          placeholder="Option 1"
-          value={option1Edit}
-          onChange={(e) => setOption1Edit(e.target.value)}
-        />
-
-        <input
-          type="text"
-          placeholder="Option 2"
-          value={option2Edit}
-          onChange={(e) => setOption2Edit(e.target.value)}
-        />
-
-        <input
-          type="text"
-          placeholder="Option 3"
-          value={option3Edit}
-          onChange={(e) => setOption3Edit(e.target.value)}
-        />
-
-        <input
-          type="text"
-          placeholder="Option 4"
-          value={option4Edit}
-          onChange={(e) => setOption4Edit(e.target.value)}
-        />
-
-        <br /><br />
-
-        <button 
-          type="submit" 
-          disabled={currQuestionId == 0}>
-          
-          Update Question
-        </button>
-      </form>
+      <QuestionList questions={questions} questionInput={questionInput} option1={option1} option2={option2} option3={option3} option4={option4} setQuestionInput={setQuestionInput} setOption1={setOption1} setOption2={setOption2} setOption3={setOption3} setOption4={setOption4} deleteQuestion={deleteQuestion} />
+      
+      <QuestionForm updateQuestion={updateQuestion} questionInput={questionInput} option1={option1} option2={option2} option3={option3} option4={option4} />
+      <QuestionForm updateQuestion={(e) => updateQuestion(e, true)} currQuestion={getQuestionById(currQuestionId)} questionInput={questionInput} option1={option1} option2={option2} option3={option3} option4={option4} />
+    
     </div>
   );
 }
