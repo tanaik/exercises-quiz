@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Question from "./Question";
 import QuestionList from "./QuestionList";
 import QuestionForm from "./QuestionForm";
@@ -6,19 +6,27 @@ import { fetchGET } from "./apiService";
 function Quiz() {
   const [id, setId] = useState(1);
   const [currQuestionId, setCurrQuestionId] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-
   const [questions, setQuestions] = useState([
   ]);
 
-  if(!isLoaded) {
-    fetchGET().then(data => {
-      setQuestions(data);
-      setIsLoaded(true);
-    });
-  }
+  const [reload, setReload] = useState(false);
 
+  useEffect(() => {
+    fetchGET().then(data => {
+      
+
+      var x = questions.map(q => q.questionId);
+      var y = Math.max(...x)
+      console.log(y)
+      setId(1 + 1);
+      setQuestions(data); 
+    });
+  }, [reload]);
+
+  const toggleReload = () =>
+  {
+    setReload(!reload);
+  }
  
 
   const updateQuestion = (e, isEdit = false) => {
@@ -30,44 +38,16 @@ function Quiz() {
       "questionId": isEdit ? currQuestionId : (id + 1)
     };
 
-
-    //const existingQuestion = questions.find(q => q.question.trim() === questionInput.trim());
-
-
-    if (isEdit) {
-      // EDIT
-      const existingQuestion = questions.find(q => q.questionId === currQuestionId);
-      setQuestions(
-        questions.map(q =>
-        q.questionId === currQuestionId ? newQuestion : q)
-      );
-    } else {
-      // ADD
-      setQuestions([...questions, newQuestion]);
-      setId(id + 1);
-    }
-
-    // Clear inputs
   };
-
-  const deleteQuestion = (questionId) => {
-    setQuestions(
-      questions.filter(q => q.questionId !== questionId)
-    );
-  };
-
-  const getQuestionById = (id) => {
-    return questions.find(q => q.questionId === id);
-  }
 
   return (
     <div>
       <h1>Quiz App</h1>
 
-      <QuestionList questions={questions}  deleteQuestion={deleteQuestion} setCurrentQuestion={setCurrQuestionId}/>
+      <QuestionList questions={questions} setCurrentQuestion={setCurrQuestionId} toggleReload = {toggleReload}/>
       
-      <QuestionForm updateQuestion={updateQuestion} />
-      <QuestionForm updateQuestion={(e) => updateQuestion(e, true)} currQuestion={getQuestionById(currQuestionId)} />
+      <QuestionForm updateQuestion={(e) => updateQuestion(e, false)} isEdit={false} toggleReload = {toggleReload} newQuestionId = {id}/>
+      <QuestionForm updateQuestion={(e) => updateQuestion(e, true)} isEdit={true} currQuestionId={currQuestionId} toggleReload = {toggleReload} />
     
     </div>
   );

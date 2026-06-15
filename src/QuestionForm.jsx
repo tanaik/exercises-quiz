@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-const QuestionForm = ({ updateQuestion, currQuestion, ...props }) => {
-    console.log(currQuestion);
+import React, { useState,useEffect } from "react";
+import { fetchGET,fetchPOST,fetchPUT } from "./apiService";
+
+const QuestionForm = ({ updateQuestion, currQuestionId, isEdit,toggleReload,newQuestionId }) => {
+    console.log(currQuestionId);
 
     const [questionInput, setQuestionInput] = useState("");
     const [option1, setOption1] = useState("");
@@ -8,20 +10,60 @@ const QuestionForm = ({ updateQuestion, currQuestion, ...props }) => {
     const [option3, setOption3] = useState("");
     const [option4, setOption4] = useState("");
 
-    // setQuestionInput("");
-    // setOption1("");
-    // setOption2("");
-    // setOption3("");
-    // setOption4("");
-      
+    console.log(`Add form ${newQuestionId}`)
+    useEffect(() => {
+      if(isEdit && currQuestionId != 0) {
+            fetchGET(currQuestionId).then(data => {
+            console.log(data);
+          
+            setQuestionInput(data.question);
+            setOption1(data.options[0]);
+            setOption2(data.options[1]);
+            setOption3(data.options[2]);
+            setOption4(data.options[3]);
+         });
+      }
+        
+      }, [currQuestionId]);
+
+    const saveQuestion = (e) => {
+        e.preventDefault();
+
+        if(!isEdit) {
+          const newQuestion = {
+          "question": questionInput,
+          "options": [option1, option2, option3, option4],
+          "questionId":18
+         };
+          fetchPOST(newQuestion)
+          .then(() => {
+            console.log("Question added successfully.");
+            toggleReload();
+
+          });
+        }
+        else
+        {
+          fetchPUT(currQuestionId, {
+            "question": questionInput,
+            "options": [option1, option2, option3, option4],
+          })
+          .then(() => {
+            console.log("Question updated successfully.");
+            toggleReload();
+          });
+        }
+        
+    };
+
     return (
     <>
-        <form onSubmit={(e) => updateQuestion(e, false)}>
+        <form>
         <input
           type="text"
           placeholder="Enter Question"
-          value={props.questionInput}
-          onChange={(e) => props.setQuestionInput(e.target.value)}
+          value={questionInput}
+          onChange={(e) => setQuestionInput(e.target.value)}
         />
 
         <br /><br />
@@ -29,35 +71,35 @@ const QuestionForm = ({ updateQuestion, currQuestion, ...props }) => {
         <input
           type="text"
           placeholder="Option 1"
-          value={props.option1}
-          onChange={(e) => props.setOption1(e.target.value)}
+          value={option1}
+          onChange={(e) =>  setOption1(e.target.value)}
         />
 
         <input
           type="text"
           placeholder="Option 2"
-          value={props.option2}
-          onChange={(e) => props.setOption2(e.target.value)}
+          value={option2}
+          onChange={(e) => setOption2(e.target.value)}
         />
 
         <input
           type="text"
           placeholder="Option 3"
-          value={props.option3}
-          onChange={(e) => props.setOption3(e.target.value)}
+          value={option3}
+          onChange={(e) => setOption3(e.target.value)}
         />
 
         <input
           type="text"
           placeholder="Option 4"
-          value={props.option4}
-          onChange={(e) => props.setOption4(e.target.value)}
+          value={option4}
+          onChange={(e) => setOption4(e.target.value)}
         />
 
         <br /><br />
 
-        <button type="submit">
-          Add Question
+        <button type="submit" onClick={saveQuestion}>
+          {isEdit ? "Update" : "Add"} Question
         </button>
       </form>
     </>)

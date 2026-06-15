@@ -12,6 +12,7 @@ const Question = (props) => {
         fetchDELETE(questionId)
         .then(() => {
             console.log(`Question with ID ${questionId} deleted successfully.`);
+            props.toggleReload();
         })
         .catch((error) => {
             console.error("Error deleting question:", error);
@@ -43,6 +44,7 @@ const Question = (props) => {
           </button>
           <button onClick={() => {
             console.log("Edit");
+            console.log(question.questionId);
             props.setCurrentQuestion(question.questionId) 
             }}
           >Edit</button>

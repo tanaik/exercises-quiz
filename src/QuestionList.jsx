@@ -5,11 +5,11 @@ const QuestionList = ({ questions ,...props}) => {
     const setCurrentQuestion = (questionId) => {
         props.setCurrentQuestion(questionId);
     }
-    console.log(props.deleteQuestion);
+    console.log(`Questions Component ${questions}`);
   return (
     <div>
-      {questions.map((q, index) => (
-        <Question key = {q.questionId} {...q} setCurrentQuestion={setCurrentQuestion} deleteQuestion={props.deleteQuestion} />
+      {questions != undefined && questions.map((q, index) => (
+        <Question key = {q.questionId} {...q} setCurrentQuestion={setCurrentQuestion} toggleReload = {props.toggleReload}/>
       ))}
     </div>
   );
