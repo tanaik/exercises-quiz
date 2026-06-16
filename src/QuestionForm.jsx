@@ -9,6 +9,7 @@ const QuestionForm = ({ updateQuestion, currQuestionId, isEdit,toggleReload,newQ
     const [option2, setOption2] = useState("");
     const [option3, setOption3] = useState("");
     const [option4, setOption4] = useState("");
+    const [correctAnswer, setCorrectAnswer] = useState(""); // C
 
     console.log(`Add form ${newQuestionId}`)
     useEffect(() => {
@@ -21,6 +22,7 @@ const QuestionForm = ({ updateQuestion, currQuestionId, isEdit,toggleReload,newQ
             setOption2(data.options[1]);
             setOption3(data.options[2]);
             setOption4(data.options[3]);
+            setCorrectAnswer(data.correctAnswer);
          });
       }
         
@@ -33,6 +35,7 @@ const QuestionForm = ({ updateQuestion, currQuestionId, isEdit,toggleReload,newQ
           const newQuestion = {
           "question": questionInput,
           "options": [option1, option2, option3, option4],
+          "correctAnswer": correctAnswer, // C
           "questionId":18
          };
           fetchPOST(newQuestion)
@@ -47,6 +50,7 @@ const QuestionForm = ({ updateQuestion, currQuestionId, isEdit,toggleReload,newQ
           fetchPUT(currQuestionId, {
             "question": questionInput,
             "options": [option1, option2, option3, option4],
+            "correctAnswer": correctAnswer, // C
           })
           .then(() => {
             console.log("Question updated successfully.");
@@ -95,6 +99,17 @@ const QuestionForm = ({ updateQuestion, currQuestionId, isEdit,toggleReload,newQ
           value={option4}
           onChange={(e) => setOption4(e.target.value)}
         />
+
+        <br /><br />
+
+      <input  // C
+        type="number"
+        min="1"
+        max="4"
+        placeholder="Correct Answer (1-4)"
+        value={correctAnswer}
+        onChange={(e) => setCorrectAnswer(e.target.value)}
+      />
 
         <br /><br />
 
