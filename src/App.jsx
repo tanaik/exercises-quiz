@@ -1,56 +1,36 @@
-import { useState,useEffect } from "react";
-import Question from "./Question";
-import QuestionList from "./QuestionList";
-import QuestionForm from "./QuestionForm";
-import { fetchGET } from "./apiService";
-function Quiz() {
-  const [id, setId] = useState(1);
-  const [currQuestionId, setCurrQuestionId] = useState(0);
-  const [questions, setQuestions] = useState([
-  ]);
+import React from 'react'
+import { Routes ,Route} from 'react-router-dom'
+import HomePage  from './quiz/HomePage'
+import NotFoundPage from './quiz/NotFoundPage'
+import QuizListPage from './quiz/QuizListPage'
+import QuizPage from './quiz/QuizPage'
+import ResultsPage from './quiz/ResultsPage'
+import Navbar from './quiz/Navbar'
 
-  const [reload, setReload] = useState(false);
-
-  useEffect(() => {
-    fetchGET().then(data => {
-      
-
-      var x = questions.map(q => q.questionId);
-      var y = Math.max(...x)
-      console.log(y)
-      setId(1 + 1);
-      setQuestions(data); 
-    });
-  }, [reload]);
-
-  const toggleReload = () =>
-  {
-    setReload(!reload);
-  }
- 
-
-  const updateQuestion = (e, isEdit = false) => {
-    e.preventDefault();
-
-    const newQuestion = {
-      "question": isEdit ? questionInputEdit : questionInput,
-      "options": [isEdit ? option1Edit : option1, isEdit ? option2Edit : option2, isEdit ? option3Edit : option3, isEdit ? option4Edit : option4],
-      "questionId": isEdit ? currQuestionId : (id + 1)
-    };
-
-  };
-
+const App = () => {
   return (
-    <div>
-      <h1>Quiz App</h1>
+    <>
+    <Navbar/>
+     <Routes>
 
-      <QuestionList questions={questions} setCurrentQuestion={setCurrQuestionId} toggleReload = {toggleReload}/>
-      
-      <QuestionForm updateQuestion={(e) => updateQuestion(e, false)} isEdit={false} toggleReload = {toggleReload} newQuestionId = {id}/>
-      <QuestionForm updateQuestion={(e) => updateQuestion(e, true)} isEdit={true} currQuestionId={currQuestionId} toggleReload = {toggleReload} />
-    
-    </div>
-  );
+      {/* exact path "/" → HomePage */}
+      <Route path="/"             element={<HomePage />} />
+
+      {/* "/quiz" → QuizListPage */}
+      <Route path="/quiz"         element={<QuizListPage />} />
+
+      {/* "/quiz/1" or "/quiz/42" → QuizPage (:id is a URL param) */}
+      <Route path="/quiz/:id"     element={<QuizPage />} />
+
+      {/* "/results/1" → ResultsPage */}
+      <Route path="/results/:id"  element={<ResultsPage />} />
+
+      {/* "*" catches ALL unmatched URLs → 404 page */}
+      <Route path="*"             element={<NotFoundPage />} />
+
+    </Routes>
+    </>
+  )
 }
 
-export default Quiz;
+export default App
