@@ -6,6 +6,7 @@ import QuizListPage from './quiz/QuizListPage'
 import QuizPage from './quiz/QuizPage'
 import ResultsPage from './quiz/ResultsPage'
 import Navbar from './quiz/Navbar'
+import QuizManage from './quizManage'
 
 const App = () => {
   return (
@@ -14,7 +15,7 @@ const App = () => {
      <Routes>
 
       {/* exact path "/" → HomePage */}
-      <Route path="/"             element={<HomePage />} />
+      <Route path="/"             element={<QuizManage />} />
 
       {/* "/quiz" → QuizListPage */}
       <Route path="/quiz"         element={<QuizListPage />} />

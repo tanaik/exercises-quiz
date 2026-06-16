@@ -3,7 +3,7 @@ import Question from "./Question";
 import QuestionList from "./QuestionList";
 import QuestionForm from "./QuestionForm";
 import { fetchGET } from "./apiService";
-function Quiz() {
+function QuizManage() {
   const [id, setId] = useState(1);
   const [currQuestionId, setCurrQuestionId] = useState(0);
   const [questions, setQuestions] = useState([
@@ -53,4 +53,4 @@ function Quiz() {
   );
 }
 
-export default Quiz;
+export default QuizManage;
