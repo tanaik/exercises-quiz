@@ -9,7 +9,8 @@
         "Programming Language"
       ],
       "id": 1,
-      "questionId": 1
+      "questionId": 1,
+      "correctAnswer": 1
     },
     {
       "question": "Which hook is used for side effects in React?",
