@@ -1,4 +1,11 @@
 {
+    "quizzes": [ 
+    {
+      "id": 1,
+      "title": "React Basics",
+      "description": "Beginner React Quiz"
+    }
+  ],
   "questions": [
     {
       "question": "What is Virtual DOM?",
@@ -113,3 +120,5 @@
     }
   ]
 }
+
+

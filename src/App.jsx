@@ -14,20 +14,17 @@ const App = () => {
     <Navbar/>
      <Routes>
 
-      {/* exact path "/" → HomePage */}
-      <Route path="/"             element={<QuizManage />} />
+      <Route path="/"             element={<HomePage />} />
 
-      {/* "/quiz" → QuizListPage */}
-      <Route path="/quiz"         element={<QuizListPage />} />
+    <Route path="/admin"        element={<QuizManage />} />
 
-      {/* "/quiz/1" or "/quiz/42" → QuizPage (:id is a URL param) */}
-      <Route path="/quiz/:id"     element={<QuizPage />} />
+    <Route path="/quiz"         element={<QuizListPage />} />
 
-      {/* "/results/1" → ResultsPage */}
-      <Route path="/results/:id"  element={<ResultsPage />} />
+    <Route path="/quiz/:id"     element={<QuizPage />} />
 
-      {/* "*" catches ALL unmatched URLs → 404 page */}
-      <Route path="*"             element={<NotFoundPage />} />
+    <Route path="/results/:id"  element={<ResultsPage />} />
+
+    <Route path="*"             element={<NotFoundPage />} />
 
     </Routes>
     </>

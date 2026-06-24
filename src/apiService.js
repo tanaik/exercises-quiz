@@ -75,5 +75,10 @@ async function fetchDELETE(id) {
   return text ? JSON.parse(text) : { deleted: true, id };
 }
 
+export async function fetchQuizzes() {
+  const response = await fetch(`${BASE_URL}/quizzes`);
+  return response.json();
+}
+
 
 export { fetchGET, fetchPOST, fetchPUT, fetchPATCH, fetchDELETE };

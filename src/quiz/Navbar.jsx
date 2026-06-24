@@ -28,6 +28,8 @@ const Navbar = () => {
       </NavLink>
 
       <NavLink to="/quiz"        style={navLinkStyle}>Quizzes</NavLink>
+
+      <NavLink to="/admin" style={navLinkStyle}>Admin</NavLink>
       <NavLink to="/results" style={navLinkStyle}> Results </NavLink>
     </nav>
     </>
